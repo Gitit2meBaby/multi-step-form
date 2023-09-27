@@ -1,5 +1,5 @@
 
-let selectedPlan
+let selectedPlan = 'arcade'
 let isPlanTimeClicked = false
 let isOnlineClicked = false
 let isStorageClicked = false
@@ -28,12 +28,7 @@ planTimeToggle.addEventListener('click', () => {
         advancedPrice.textContent = '$12/mo'
         proPrice.textContent = '$15/mo'
     }
-
-    updatePlanTime(isPlanTimeClicked)
-
 })
-
-
 
 // choosing the plan type and passing the data-plan attribute
 const cards = document.querySelectorAll('.card');
@@ -47,16 +42,16 @@ cards.forEach((card) => {
 
         const dataPlan = card.getAttribute('data-plan');
         selectedPlan = dataPlan
-        // updateSelectedPlan(selectedPlan);
     });
 });
 
-
+// picking add ons
 const onlineService = document.querySelector('#onlineService')
 onlineService.addEventListener('click', () => {
     const containerChosen = onlineService.closest('.radio-container')
     containerChosen.classList.toggle('active-card')
     isOnlineClicked = !isOnlineClicked;
+    updateSummaryDisplay()
 })
 
 const storage = document.querySelector('#storage')
@@ -64,6 +59,7 @@ storage.addEventListener('click', () => {
     const containerChosen = storage.closest('.radio-container')
     containerChosen.classList.toggle('active-card')
     isStorageClicked = !isStorageClicked;
+    updateSummaryDisplay()
 })
 
 const custom = document.querySelector('#custom')
@@ -71,6 +67,7 @@ custom.addEventListener('click', () => {
     const containerChosen = custom.closest('.radio-container')
     containerChosen.classList.toggle('active-card')
     isCustomClicked = !isCustomClicked;
+    updateSummaryDisplay()
 })
 
 
@@ -89,12 +86,18 @@ function updatePlanTime(isPlanTimeClicked) {
     }
 }
 
+// Get all the booleans and adapt.. or DIE!!!
+function summaryDisplay() {
+    const planDisplay = document.querySelector('#plan')
+    let planTime;
+    if (isPlanTimeClicked = false) {
+        planTime = '(monthly)'
+    } else {
+        planTime = '(yearly)'
+    }
 
-
-
-
-
-
+    planDisplay.textContent = `${selectedPlan} ${planTime}`
+}
 
 // BUTTONS FOR PLAN SECTION
 const nextBtnPlan = document.querySelector('#nextBtnPlan')
@@ -128,11 +131,12 @@ backBtnPlan.addEventListener('click', () => {
 
 })
 
+
+// buttons for add ons section
 const nextBtnAddOns = document.querySelector('#nextBtnAddOns')
 nextBtnAddOns.addEventListener('click', () => {
     const summarySelection = document.querySelector('#summarySelection')
     const summarySection = document.querySelector('#summarySection')
-
     const addOnsSelection = document.querySelector('#addOnsSelection')
     const addOnsSection = document.querySelector('#addOnsSection')
 
@@ -142,6 +146,7 @@ nextBtnAddOns.addEventListener('click', () => {
     summarySelection.classList.add('selected')
 
     console.log(selectedPlan, isPlanTimeClicked, isOnlineClicked, isStorageClicked, isCustomClicked)
+    summaryDisplay()
 })
 
 const backBtnAddOns = document.querySelector('#backBtnAddOns')
@@ -159,6 +164,33 @@ backBtnAddOns.addEventListener('click', () => {
 
 })
 
+// buttons for summary section
+const confirmBtn = document.querySelector('#confirmBtn')
+confirmBtn.addEventListener('click', () => {
+
+    const summarySection = document.querySelector('#summarySection')
+    const finalSection = document.querySelector('#finalSection')
+    summarySection.classList.add('hidden')
+    finalSection.classList.remove('hidden')
+
+    console.log(selectedPlan, isPlanTimeClicked, isOnlineClicked, isStorageClicked, isCustomClicked)
+    summaryDisplay()
+})
+
+const backBtnSummary = document.querySelector('#backBtnSummary')
+backBtnSummary.addEventListener('click', () => {
+
+    const addOnsSelection = document.querySelector('#addOnsSelection')
+    const addOnsSection = document.querySelector('#addOnsSection')
+
+    addOnsSection.classList.remove('hidden')
+    addOnsSelection.classList.add('selected')
+
+    const summarySelection = document.querySelector('#summarySelection')
+    const summarySection = document.querySelector('#summarySection')
+    summarySection.classList.add('hidden')
+    summarySelection.classList.remove('selected')
+})
 
 
 

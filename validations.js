@@ -9,6 +9,7 @@ function validateEmail() {
 
     if (email.value.match(mailformat)) {
         if (errorMsg) {
+            email.classList.remove("error-input");
             errorMsg.remove();
         }
         return true;

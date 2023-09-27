@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   <link rel="stylesheet" href="styles.css">
+  <script defer src="validations.js"></script>
   <script defer src="script.js"></script>
   <title>Frontend Mentor | Multi-step form</title>
 </head>
@@ -29,8 +30,8 @@
         </div>
       </div>
 
-      <div id="planSelection" class="sidebar-item">
-        <div class="selection">
+      <div class="sidebar-item">
+        <div id="planSelection" class="selection">
           <p>2</p>
         </div>
         <div class="step-container">
@@ -39,8 +40,8 @@
         </div>
       </div>
 
-      <div id="addOnsSelection" class="sidebar-item">
-        <div class="selection">
+      <div class="sidebar-item">
+        <div id="addOnsSelection" class="selection">
           <p>3</p>
         </div>
         <div class="step-container">
@@ -49,8 +50,8 @@
         </div>
       </div>
 
-      <div id="summarySelection" class="sidebar-item">
-        <div class="selection">
+      <div class="sidebar-item">
+        <div id="summarySelection" class="selection">
           <p>4</p>
         </div>
         <div class="step-container">
@@ -68,7 +69,7 @@
         <p>Please provide your name, email address, and phone number.</p>
       </div>
 
-      <div class="content-box">
+      <div>
         <div class="input-wrapper">
           <div class="label-wrapper">
             <label for="nameInput">Name</label>
@@ -108,9 +109,9 @@
         <p>You have the option of monthly or yearly billing.</p>
       </div>
 
-      <div class="content-box">
+      <div>
         <div class="card-grid">
-          <div class="card" id="arcade" data-plan="arcade">
+          <div class="card active-card" id="arcade" data-plan="arcade">
             <div class="card-image">
               <img src="assets/images/icon-arcade.svg" alt="arcade game clipart">
             </div>
@@ -151,8 +152,8 @@
         </div>
       </div>
 
-      <div class="button-container">
-        <button class="back-btn" id="backBtnPlan">back</button>
+      <div class="btn-container">
+        <button class="back-btn" id="backBtnPlan">Go back</button>
         <button class="primary-btn" id="nextBtnPlan">Next Step</button>
       </div>
     </section>
@@ -168,35 +169,35 @@
       <div class="content-box">
 
         <div class="radio-container">
-          <input type="radio" id="onlineService" value="online">
+          <input type="checkbox" id="onlineService" value="online">
           <div class="radio-info">
-            <label for="onlineService">Online Service</label>
+            <label class="radioBox" for="onlineService">Online Service</label>
             <p>Access to multiplayer games</p>
           </div>
-          <p>+$1/mo</p>
+          <p id="onlineAddOn">+$1/mo</p>
         </div>
 
         <div class="radio-container">
-          <input type="radio" id="storage" value="storage">
+          <input type="checkbox" id="storage" value="storage">
           <div class="radio-info">
-            <label for="storage">Larger storage</label>
+            <label class="radioBox" for="storage">Larger storage</label>
             <p>Extra 1TB of cloud save</p>
           </div>
-          <p>+$2/mo</p>
+          <p id="storageAddOn">+$2/mo</p>
         </div>
 
         <div class="radio-container">
-          <input type="radio" id="custom" value="custom">
+          <input type="checkbox" id="custom" value="custom">
           <div class="radio-info">
-            <label for="custom">Customizable custom</label>
+            <label class="radioBox" for="custom">Customizable custom</label>
             <p>Custom theme on your profile</p>
           </div>
-          <p>+$2/mo</p>
+          <p id="customAddOn">+$2/mo</p>
         </div>
       </div>
 
-      <div class="button-container">
-        <button class="back-btn" id="backBtnAddOns">back</button>
+      <div class="btn-container">
+        <button class="back-btn" id="backBtnAddOns">Go back</button>
         <button class="primary-btn" id="nextBtnAddOns">Next Step</button>
       </div>
     </section>
@@ -210,11 +211,11 @@
       </div>
 
       <div class="content-box">
-        <div id="finalContainer">
+        <div class="final-container">
           <div class="plan">
             <div class="plan-title-wrapper">
               <h2 id="plan">Arcade (Monthly)</h2>
-              <button id="changeBtn">Change</button>
+              <button class="change-btn" id="changeBtn">Change</button>
             </div>
             <div class="plan-cost">
               <h3 id="planCost">#9/mo</h3>
@@ -228,8 +229,8 @@
         </div>
       </div>
 
-      <div class="button-container">
-        <button class="backBtn" id="backBtnSummary">back</button>
+      <div class="btn-container">
+        <button class="back-btn" id="backBtnSummary">Go back</button>
         <button class="primary-btn confirm-btn" id="confirmBtn">Confirm</button>
       </div>
     </section>

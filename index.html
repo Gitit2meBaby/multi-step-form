@@ -117,7 +117,7 @@
             </div>
             <div class="card-content">
               <h2>Arcade</h2>
-              <p id="arcadePrice">$9/mo</p>
+              <p class="card-p" id="arcadePrice">$9/mo</p>
               <p class="yearly-dropdown hidden">2 months free</p>
             </div>
           </div>
@@ -128,7 +128,7 @@
             </div>
             <div class="card-content">
               <h2>Advanced</h2>
-              <p id="advancedPrice">$12/mo</p>
+              <p class="card-p" id="advancedPrice">$12/mo</p>
               <p class="yearly-dropdown hidden">2 months free</p>
             </div>
           </div>
@@ -139,14 +139,14 @@
             </div>
             <div class="card-content">
               <h2>Pro</h2>
-              <p id="proPrice">$15/mo</p>
+              <p class="card-p" id="proPrice">$15/mo</p>
               <p class="yearly-dropdown hidden">2 months free</p>
             </div>
           </div>
         </div>
 
         <div class="toggle-wrapper">
-          <p id="monthly">Monthly</p>
+          <p class="active-text" id="monthly">Monthly</p>
           <input type="checkbox" id="switch" /><label for="switch"></label>
           <p id="yearly">Yearly</p>
         </div>
@@ -168,30 +168,30 @@
 
       <div class="content-box">
 
-        <div class="radio-container">
+        <div class="radio-container online-service">
           <input type="checkbox" id="onlineService" value="online">
           <div class="radio-info">
-            <label class="radioBox" for="onlineService">Online Service</label>
-            <p>Access to multiplayer games</p>
-          </div>
+            <label class="radioBox" for="onlineService">Online Service
+              <p>Access to multiplayer games</p>
+          </div></label>
           <p id="onlineAddOn">+$1/mo</p>
         </div>
 
-        <div class="radio-container">
+        <div class="radio-container storage">
           <input type="checkbox" id="storage" value="storage">
           <div class="radio-info">
-            <label class="radioBox" for="storage">Larger storage</label>
-            <p>Extra 1TB of cloud save</p>
-          </div>
+            <label class="radioBox" for="storage">Larger storage
+              <p>Extra 1TB of cloud save</p>
+          </div></label>
           <p id="storageAddOn">+$2/mo</p>
         </div>
 
-        <div class="radio-container">
+        <div class="radio-container custom">
           <input type="checkbox" id="custom" value="custom">
           <div class="radio-info">
-            <label class="radioBox" for="custom">Customizable profile</label>
-            <p>Custom theme on your profile</p>
-          </div>
+            <label class="radioBox" for="custom">Customizable profile
+              <p>Custom theme on your profile</p>
+          </div></label>
           <p id="customAddOn">+$2/mo</p>
         </div>
       </div>

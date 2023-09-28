@@ -1,4 +1,4 @@
-
+// declare variables for total updates - set arcade values in case user doesnt actually click
 let selectedPlan = 'arcade'
 let planPrice = '15'
 let planTime = '(monthly)'
@@ -17,11 +17,17 @@ planTimeToggle.addEventListener('click', () => {
     cardDropdowns.forEach((dropdown) => {
         dropdown.classList.toggle('hidden')
     })
+    //change text color
+    const monthlyText = document.querySelector('#monthly')
+    const yearlyText = document.querySelector('#yearly')
+    yearlyText.classList.toggle('active-text')
+    monthlyText.classList.toggle('active-text')
 
     isPlanTimeClicked = !isPlanTimeClicked;
 
     updatePlanTime(isPlanTimeClicked);
 
+    //update the text content in the plan section
     const arcadePrice = document.querySelector('#arcadePrice')
     const advancedPrice = document.querySelector('#advancedPrice')
     const proPrice = document.querySelector('#proPrice')
@@ -80,7 +86,7 @@ custom.addEventListener('click', () => {
     isCustomClicked = !isCustomClicked;
 })
 
-
+// change the text content of the add ons section depending on the year/month click
 function updatePlanTime(isPlanTimeClicked) {
     const onlineAddOn = document.querySelector('#onlineAddOn')
     const storageAddOn = document.querySelector('#storageAddOn')
@@ -123,7 +129,7 @@ function summaryDisplay() {
     total = planPrice
 }
 
-
+// html template for the addons on summary screen
 function appendAddOnsTemplate(addOn, price) {
     const addOnTemplate = document.createElement('div');
     addOnTemplate.classList.add('append-plan');
@@ -138,6 +144,7 @@ function appendAddOnsTemplate(addOn, price) {
     return addOnTemplate;
 }
 
+// appending the chosen add ons to summary screen and updating the total
 function updateSummaryDisplay() {
     const planDisplay = document.querySelector('.final-container');
 
@@ -180,104 +187,72 @@ function updateSummaryDisplay() {
     totalDisplay.textContent = total
 }
 
-console.log(selectedPlan, isPlanTimeClicked, isOnlineClicked, isStorageClicked, isCustomClicked)
+//remove the chosen plans from the screen incase the user goes back
+function removeAppendedPlans() {
+    const finalContainer = document.querySelector('.final-container');
+    const appendedPlans = finalContainer.querySelectorAll('.append-plan');
+    const totalDisplay = document.querySelector('#total')
 
 
+    // Iterate over the appended plans and remove them, subtracting their prices from the total
+    appendedPlans.forEach((plan) => {
+        const priceElement = plan.querySelector('.plan-cost p');
+        const priceText = priceElement.textContent;
+        const price = parseInt(priceText.replace(/\D/g, ''), 10);
+        total -= price;
+        plan.remove();
+    });
+}
+// Function to handle screen transitions
+function handleScreenTransition(fromSectionId, toSectionId) {
+    const fromSection = document.querySelector(fromSectionId);
+    const toSection = document.querySelector(toSectionId);
 
+    fromSection.classList.add('hidden');
+    toSection.classList.remove('hidden');
+}
 
-
-// BUTTONS FOR PLAN SECTION
-const nextBtnPlan = document.querySelector('#nextBtnPlan')
+// Buttons for plan section
+const nextBtnPlan = document.querySelector('#nextBtnPlan');
 nextBtnPlan.addEventListener('click', () => {
+    handleScreenTransition('#planSection', '#addOnsSection');
+    summaryDisplay();
+});
 
-
-    const planSelection = document.querySelector('#planSelection')
-    const planSection = document.querySelector('#planSection')
-    const addOnsSelection = document.querySelector('#addOnsSelection')
-    const addOnsSection = document.querySelector('#addOnsSection')
-
-    planSection.classList.add('hidden')
-    planSelection.classList.remove('selected')
-    addOnsSection.classList.remove('hidden')
-    addOnsSelection.classList.add('selected')
-
-    summaryDisplay()
-})
-
-const backBtnPlan = document.querySelector('#backBtnPlan')
+const backBtnPlan = document.querySelector('#backBtnPlan');
 backBtnPlan.addEventListener('click', () => {
-    const infoSelection = document.querySelector('#infoSelection')
-    const infoSection = document.querySelector('#infoSection')
-    infoSection.classList.remove('hidden')
-    infoSelection.classList.add('selected')
+    handleScreenTransition('#planSection', '#infoSection');
+});
 
-    const planSelection = document.querySelector('#planSelection')
-    const planSection = document.querySelector('#planSection')
-    planSection.classList.add('hidden')
-    planSelection.classList.remove('selected')
-
-})
-
-
-// buttons for add ons section
-const nextBtnAddOns = document.querySelector('#nextBtnAddOns')
+// Buttons for add ons section
+const nextBtnAddOns = document.querySelector('#nextBtnAddOns');
 nextBtnAddOns.addEventListener('click', () => {
-    const summarySelection = document.querySelector('#summarySelection')
-    const summarySection = document.querySelector('#summarySection')
-    const addOnsSelection = document.querySelector('#addOnsSelection')
-    const addOnsSection = document.querySelector('#addOnsSection')
-
-    addOnsSection.classList.add('hidden')
-    addOnsSelection.classList.remove('selected')
-    summarySection.classList.remove('hidden')
-    summarySelection.classList.add('selected')
-
-    console.log(selectedPlan, isPlanTimeClicked, isOnlineClicked, isStorageClicked, isCustomClicked)
+    handleScreenTransition('#addOnsSection', '#summarySection');
     updateSummaryDisplay()
-})
+});
 
-const backBtnAddOns = document.querySelector('#backBtnAddOns')
+const backBtnAddOns = document.querySelector('#backBtnAddOns');
 backBtnAddOns.addEventListener('click', () => {
-    const addOnsSelection = document.querySelector('#addOnsSelection')
-    const addOnsSection = document.querySelector('#addOnsSection')
+    handleScreenTransition('#addOnsSection', '#planSection');
+});
 
-    addOnsSection.classList.add('hidden')
-    addOnsSelection.classList.remove('selected')
-
-    const planSelection = document.querySelector('#planSelection')
-    const planSection = document.querySelector('#planSection')
-    planSection.classList.remove('hidden')
-    planSelection.classList.add('selected')
-
-})
-
-// buttons for summary section
-const confirmBtn = document.querySelector('#confirmBtn')
+// Buttons for summary section
+const confirmBtn = document.querySelector('#confirmBtn');
 confirmBtn.addEventListener('click', () => {
+    handleScreenTransition('#summarySection', '#finalSection');
+});
 
-    const summarySection = document.querySelector('#summarySection')
-    const finalSection = document.querySelector('#finalSection')
-    summarySection.classList.add('hidden')
-    finalSection.classList.remove('hidden')
-
-    console.log(selectedPlan, isPlanTimeClicked, isOnlineClicked, isStorageClicked, isCustomClicked)
-    summaryDisplay()
-})
-
-const backBtnSummary = document.querySelector('#backBtnSummary')
+const backBtnSummary = document.querySelector('#backBtnSummary');
 backBtnSummary.addEventListener('click', () => {
+    handleScreenTransition('#summarySection', '#addOnsSection');
+    removeAppendedPlans();
+});
 
-    const addOnsSelection = document.querySelector('#addOnsSelection')
-    const addOnsSection = document.querySelector('#addOnsSection')
-
-    addOnsSection.classList.remove('hidden')
-    addOnsSelection.classList.add('selected')
-
-    const summarySelection = document.querySelector('#summarySelection')
-    const summarySection = document.querySelector('#summarySection')
-    summarySection.classList.add('hidden')
-    summarySelection.classList.remove('selected')
-})
+const changeBtn = document.querySelector('#changeBtn');
+changeBtn.addEventListener('click', () => {
+    removeAppendedPlans();
+    handleScreenTransition('#summarySection', '#planSection');
+});
 
 
 

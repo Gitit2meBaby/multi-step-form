@@ -1,6 +1,4 @@
 // email, phone and empty field validations for initial form inputs
-// document.addEventListener('DOMContentLoaded', () => {
-
 function validateEmail() {
     const email = document.querySelector('#emailInput')
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -54,10 +52,12 @@ function validatePhone() {
     }
 }
 
-// check for empty fields before moving on
+// check for empty fields or false from phone or email before moving on
 const nextBtnInfo = document.querySelector('#nextBtnInfo')
 nextBtnInfo.addEventListener('click', (event) => {
     const requiredFields = document.querySelectorAll("input[required]");
+    const emailValid = validateEmail(); // Validate email
+    const phoneValid = validatePhone(); // Validate phone
 
     const infoSelection = document.querySelector('#infoSelection')
     const infoSection = document.querySelector('#infoSection')
@@ -78,18 +78,24 @@ nextBtnInfo.addEventListener('click', (event) => {
             field.classList.add("error-input");
         } else {
             field.classList.remove("error-input");
-            infoSection.classList.add('hidden')
-            infoSelection.classList.remove('selected')
-            planSection.classList.remove('hidden')
-            planSelection.classList.add('selected')
         }
     }
 
-    if (!isValid) {
+    if (!emailValid) {
+        isValid = false;
+    }
+
+    if (!phoneValid) {
+        isValid = false;
+    }
+
+    if (isValid) {
+        infoSection.classList.add('hidden')
+        infoSelection.classList.remove('selected')
+        planSection.classList.remove('hidden')
+        planSelection.classList.add('selected')
+    } else {
         event.preventDefault();
     }
 });
-
-// });
-
 

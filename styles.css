@@ -278,7 +278,7 @@ input::-webkit-inner-spin-button {
     font-size: .9rem;
     font-weight: 500;
     padding: 0;
-
+    cursor: pointer;
 }
 
 @media screen and (max-width: 700px) {
@@ -358,15 +358,18 @@ input::-webkit-inner-spin-button {
     padding-bottom: 0.2rem;
 }
 
-.card-content p {
+.card-p {
     margin: 0;
     font-size: .9rem;
     color: var(--Cool-gray);
 }
 
-.card-content.yearly-dropdown p {
+.yearly-dropdown {
+    margin: 0;
     color: var(--Marine-blue);
-    padding-top: .2rem;
+    font-weight: 500;
+    font-size: .7rem;
+    padding-top: .4rem;
 }
 
 .toggle-wrapper {
@@ -382,7 +385,11 @@ input::-webkit-inner-spin-button {
 .toggle-wrapper p {
     font-size: .9rem;
     color: var(--Cool-gray);
-    font-weight: 500;
+    font-weight: 700;
+}
+
+.active-text {
+    color: var(--Marine-blue) !important;
 }
 
 @media screen and (max-width: 700px) {
@@ -470,13 +477,16 @@ input::-webkit-inner-spin-button {
 }
 
 .radio-container>p {
-    justify-self: flex-end;
     color: var(--Purplish-blue);
     font-weight: 500;
+    margin-left: auto;
 }
 
-.radio-container input::after {
-    background: var(--Purplish-blue);
+
+@media screen and (max-width: 700px) {
+    .radio-info p {
+        font-size: .8rem;
+    }
 }
 
 /* SUMMARY SECTION */

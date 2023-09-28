@@ -1,9 +1,14 @@
 
 let selectedPlan = 'arcade'
+let planPrice = '15'
+let planTime = '(monthly)'
+let planTimeDisplay = '/mo'
+let planTimeSummaryDisplay = '/mo'
 let isPlanTimeClicked = false
 let isOnlineClicked = false
 let isStorageClicked = false
 let isCustomClicked = false
+let total = 0
 
 //set the plan time as monthly or yearly (pass isClicked for maths later on)
 const planTimeToggle = document.querySelector('#switch')
@@ -15,6 +20,8 @@ planTimeToggle.addEventListener('click', () => {
 
     isPlanTimeClicked = !isPlanTimeClicked;
 
+    updatePlanTime(isPlanTimeClicked);
+
     const arcadePrice = document.querySelector('#arcadePrice')
     const advancedPrice = document.querySelector('#advancedPrice')
     const proPrice = document.querySelector('#proPrice')
@@ -23,11 +30,14 @@ planTimeToggle.addEventListener('click', () => {
         arcadePrice.textContent = '$90/yr'
         advancedPrice.textContent = '$120/yr'
         proPrice.textContent = '$150/yr'
+        planTimeDisplay = '/yr'
     } else {
         arcadePrice.textContent = '$9/mo'
         advancedPrice.textContent = '$12/mo'
         proPrice.textContent = '$15/mo'
+        planTimeDisplay = '/mo'
     }
+    console.log(isPlanTimeClicked)
 })
 
 // choosing the plan type and passing the data-plan attribute
@@ -41,7 +51,10 @@ cards.forEach((card) => {
         card.classList.add('active-card');
 
         const dataPlan = card.getAttribute('data-plan');
+        const dataPrice = card.getAttribute('data-price')
         selectedPlan = dataPlan
+        planPrice = dataPrice
+        console.log(planPrice)
     });
 });
 
@@ -51,7 +64,6 @@ onlineService.addEventListener('click', () => {
     const containerChosen = onlineService.closest('.radio-container')
     containerChosen.classList.toggle('active-card')
     isOnlineClicked = !isOnlineClicked;
-    updateSummaryDisplay()
 })
 
 const storage = document.querySelector('#storage')
@@ -59,7 +71,6 @@ storage.addEventListener('click', () => {
     const containerChosen = storage.closest('.radio-container')
     containerChosen.classList.toggle('active-card')
     isStorageClicked = !isStorageClicked;
-    updateSummaryDisplay()
 })
 
 const custom = document.querySelector('#custom')
@@ -67,7 +78,6 @@ custom.addEventListener('click', () => {
     const containerChosen = custom.closest('.radio-container')
     containerChosen.classList.toggle('active-card')
     isCustomClicked = !isCustomClicked;
-    updateSummaryDisplay()
 })
 
 
@@ -78,26 +88,103 @@ function updatePlanTime(isPlanTimeClicked) {
     if (isPlanTimeClicked) {
         onlineAddOn.textContent = '+10/yr'
         storageAddOn.textContent = '+$20/yr'
-        customAddOn.textContent - '+$20/yr'
+        customAddOn.textContent = '+$20/yr'
     } else {
-        onlineAddOn.textContent = '+1/yr'
-        storageAddOn.textContent = '+$2/yr'
-        customAddOn.textContent - '+$2/yr'
+        onlineAddOn.textContent = '+1/mo'
+        storageAddOn.textContent = '+$2/mo'
+        customAddOn.textContent = '+$2/mo'
     }
 }
 
-// Get all the booleans and adapt.. or DIE!!!
+// Get the booleans to update static textContent in Summary
 function summaryDisplay() {
     const planDisplay = document.querySelector('#plan')
-    let planTime;
-    if (isPlanTimeClicked = false) {
+    const planTimeDisplay = document.querySelector('#planTime')
+    const planCostDisplay = document.querySelector('#planCost')
+    const totalsPlanTimeDisplay = document.querySelector('#totalText')
+    const totalTimeDisplay = document.querySelector('#totalTime')
+
+    if (isPlanTimeClicked === false) {
         planTime = '(monthly)'
+        totalsPlanTimeDisplay.textContent = 'Total(per month)'
+        totalTimeDisplay.textContent = '/mo'
+        planTimeSummaryDisplay = '/mo'
     } else {
         planTime = '(yearly)'
+        planPrice = planPrice * 10
+        totalsPlanTimeDisplay.textContent = 'Total(per year)'
+        totalTimeDisplay.textContent = '/yr'
+        planTimeSummaryDisplay = '/yr'
     }
 
     planDisplay.textContent = `${selectedPlan} ${planTime}`
+    planTimeDisplay.textContent = planTimeSummaryDisplay
+    planCostDisplay.textContent = planPrice
+    total = planPrice
 }
+
+
+function appendAddOnsTemplate(addOn, price) {
+    const addOnTemplate = document.createElement('div');
+    addOnTemplate.classList.add('append-plan');
+    addOnTemplate.innerHTML = `
+        <div class="append-plan-title">
+            <p>${addOn}</p>
+        </div>
+        <div class="plan-cost">
+            <p>${price}</p>
+        </div>
+    `;
+    return addOnTemplate;
+}
+
+function updateSummaryDisplay() {
+    const planDisplay = document.querySelector('.final-container');
+
+    if (isStorageClicked) {
+        addOn = 'Larger storage';
+        if (!isPlanTimeClicked) {
+            price = '+$2/yr';
+            total = parseInt(total) + 2
+        } else {
+            price = '+$20/yr';
+            total = parseInt(total) + 20
+        }
+        planDisplay.appendChild(appendAddOnsTemplate(addOn, price));
+    }
+
+    if (isOnlineClicked) {
+        addOn = 'Online service';
+        if (!isPlanTimeClicked) {
+            price = '+$1/yr';
+            total = parseInt(total) + 1
+        } else {
+            price = '+$10/yr';
+            total = parseInt(total) + 10
+        }
+        planDisplay.appendChild(appendAddOnsTemplate(addOn, price));
+    }
+
+    if (isCustomClicked) {
+        addOn = 'Customizable profile';
+        if (!isPlanTimeClicked) {
+            price = '+$2/yr';
+            total = parseInt(total) + 2
+        } else {
+            price = '+$20/yr'
+            total = parseInt(total) + 20
+        }
+        planDisplay.appendChild(appendAddOnsTemplate(addOn, price));
+    }
+    const totalDisplay = document.querySelector('#total')
+    totalDisplay.textContent = total
+}
+
+console.log(selectedPlan, isPlanTimeClicked, isOnlineClicked, isStorageClicked, isCustomClicked)
+
+
+
+
 
 // BUTTONS FOR PLAN SECTION
 const nextBtnPlan = document.querySelector('#nextBtnPlan')
@@ -114,7 +201,7 @@ nextBtnPlan.addEventListener('click', () => {
     addOnsSection.classList.remove('hidden')
     addOnsSelection.classList.add('selected')
 
-
+    summaryDisplay()
 })
 
 const backBtnPlan = document.querySelector('#backBtnPlan')
@@ -146,7 +233,7 @@ nextBtnAddOns.addEventListener('click', () => {
     summarySelection.classList.add('selected')
 
     console.log(selectedPlan, isPlanTimeClicked, isOnlineClicked, isStorageClicked, isCustomClicked)
-    summaryDisplay()
+    updateSummaryDisplay()
 })
 
 const backBtnAddOns = document.querySelector('#backBtnAddOns')

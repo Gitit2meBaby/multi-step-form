@@ -492,6 +492,13 @@ input::-webkit-inner-spin-button {
     align-items: center;
     border-bottom: 1px solid var(--Light-gray);
     padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.append-plan {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .plan-title-wrapper h2 {
@@ -500,8 +507,24 @@ input::-webkit-inner-spin-button {
     padding-bottom: .2rem;
 }
 
+.append-plan-title p {
+    color: var(--Cool-gray);
+    font-size: .9rem;
+    font-weight: 500;
+    margin: 0;
+    padding: 0.5rem 0;
+}
+
 .plan-cost h3 {
     color: var(--Marine-blue);
+}
+
+.plan-cost p {
+    color: var(--Marine-blue);
+    font-size: .9rem;
+    margin: 0;
+    padding: 0.5rem 0;
+
 }
 
 .total {

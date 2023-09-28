@@ -204,54 +204,60 @@ function removeAppendedPlans() {
     });
 }
 // Function to handle screen transitions
-function handleScreenTransition(fromSectionId, toSectionId) {
+function handleScreenTransition(fromSectionId, toSectionId, fromSelectionId, toSelectionId) {
     const fromSection = document.querySelector(fromSectionId);
     const toSection = document.querySelector(toSectionId);
 
     fromSection.classList.add('hidden');
     toSection.classList.remove('hidden');
+
+    const fromSelection = document.querySelector(fromSelectionId);
+    const toSelection = document.querySelector(toSelectionId);
+
+    fromSelection.classList.remove('selected');
+    toSelection.classList.add('selected');
 }
 
 // Buttons for plan section
 const nextBtnPlan = document.querySelector('#nextBtnPlan');
 nextBtnPlan.addEventListener('click', () => {
-    handleScreenTransition('#planSection', '#addOnsSection');
+    handleScreenTransition('#planSection', '#addOnsSection', '#planSelection', '#addOnsSelection');
     summaryDisplay();
 });
 
 const backBtnPlan = document.querySelector('#backBtnPlan');
 backBtnPlan.addEventListener('click', () => {
-    handleScreenTransition('#planSection', '#infoSection');
+    handleScreenTransition('#planSection', '#infoSection', '#planSelection', '#infoSelection');
 });
 
 // Buttons for add ons section
 const nextBtnAddOns = document.querySelector('#nextBtnAddOns');
 nextBtnAddOns.addEventListener('click', () => {
-    handleScreenTransition('#addOnsSection', '#summarySection');
+    handleScreenTransition('#addOnsSection', '#summarySection', '#addOnsSelection', '#summarySelection');
     updateSummaryDisplay()
 });
 
 const backBtnAddOns = document.querySelector('#backBtnAddOns');
 backBtnAddOns.addEventListener('click', () => {
-    handleScreenTransition('#addOnsSection', '#planSection');
+    handleScreenTransition('#addOnsSection', '#planSection', '#addOnsSelection', '#planSelection');
 });
 
 // Buttons for summary section
 const confirmBtn = document.querySelector('#confirmBtn');
 confirmBtn.addEventListener('click', () => {
-    handleScreenTransition('#summarySection', '#finalSection');
+    handleScreenTransition('#summarySection', '#finalSection', '#summarySelection', '#finalSelection');
 });
 
 const backBtnSummary = document.querySelector('#backBtnSummary');
 backBtnSummary.addEventListener('click', () => {
-    handleScreenTransition('#summarySection', '#addOnsSection');
+    handleScreenTransition('#summarySection', '#addOnsSection', '#summarySelection', '#addOnsSelection');
     removeAppendedPlans();
 });
 
 const changeBtn = document.querySelector('#changeBtn');
 changeBtn.addEventListener('click', () => {
     removeAppendedPlans();
-    handleScreenTransition('#summarySection', '#planSection');
+    handleScreenTransition('#summarySection', '#planSection', '#summarySelection', '#planSelection');
 });
 
 
